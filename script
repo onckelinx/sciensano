@@ -1,0 +1,63 @@
+function importCSVFromSciensano() {
+  
+// declare sheets
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var firstSheet = spreadsheet.getSheets()[0];
+  var secondSheet = spreadsheet.getSheets()[1];
+  var thirdSheet = spreadsheet.getSheets()[2];
+  var fourthSheet = spreadsheet.getSheets()[3];
+
+// future proof
+  var fifthSheet = spreadsheet.getSheets()[4];
+  var sixthSheet = spreadsheet.getSheets()[5];
+  var seventhSheet = spreadsheet.getSheets()[6];
+
+// csv urls to import
+  var csvoneUrl = "https://epistat.sciensano.be/Data/COVID19BE_CASES_AGESEX.csv";
+  var csvtwoUrl = "https://epistat.sciensano.be/Data/COVID19BE_HOSP.csv";
+  var csvthreeUrl = "https://epistat.sciensano.be/Data/COVID19BE_MORT.csv";
+  var csvfourUrl = "https://epistat.sciensano.be/Data/COVID19BE_tests.csv";
+
+// fetch the content for the respective csv docs
+  var csvoneContent = UrlFetchApp.fetch(csvoneUrl).getContentText();
+  var csvtwoContent = UrlFetchApp.fetch(csvtwoUrl).getContentText();
+  var csvthreeContent = UrlFetchApp.fetch(csvthreeUrl).getContentText();
+  var csvfourContent = UrlFetchApp.fetch(csvfourUrl).getContentText();
+
+  var csvoneData = Utilities.parseCsv(csvoneContent);
+  var csvtwoData = Utilities.parseCsv(csvtwoContent);
+  var csvthreeData = Utilities.parseCsv(csvthreeContent);
+  var csvfourData = Utilities.parseCsv(csvfourContent);
+
+// Set the active sheet
+spreadsheet.setActiveSheet(firstSheet);
+  
+// script for first sheet
+  var sheetone = SpreadsheetApp.getActiveSheet();
+  sheetone.getRange(1, 1, csvoneData.length, csvoneData[0].length).setValues(csvoneData);
+
+// Set the active sheet 
+spreadsheet.setActiveSheet(secondSheet);  
+  
+// script for 2nd sheet
+  var sheettwo = SpreadsheetApp.getActiveSheet();
+  sheettwo.getRange(1, 1, csvtwoData.length, csvtwoData[0].length).setValues(csvtwoData);
+  
+// Set the active sheet 
+spreadsheet.setActiveSheet(thirdSheet);
+
+// script for 3rd sheet
+  var sheetthree = SpreadsheetApp.getActiveSheet();
+  sheetthree.getRange(1, 1, csvthreeData.length, csvthreeData[0].length).setValues(csvthreeData);
+  
+// Set the active sheet 
+spreadsheet.setActiveSheet(fourthSheet);
+
+// script for 4thd sheet
+  var sheetfour = SpreadsheetApp.getActiveSheet();
+  sheetfour.getRange(1, 1, csvfourData.length, csvfourData[0].length).setValues(csvfourData);
+  
+// Set the active sheet 
+spreadsheet.setActiveSheet(firstSheet);  
+
+}
